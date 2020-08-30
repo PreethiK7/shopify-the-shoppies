@@ -55,7 +55,7 @@ class SearchBar extends React.Component {
         event.preventDefault()
 
         let term =  event.target.value
-        this.makeApiCall(`http://localhost:5000/get_movies?searchTerm=${term}`).then((response => {
+        this.makeApiCall(`/get_movies?searchTerm=${term}`).then((response => {
             console.log(response)
             this.setTheState(term,response)
         })).catch(() => {
