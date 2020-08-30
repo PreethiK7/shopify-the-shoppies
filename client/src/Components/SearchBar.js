@@ -38,17 +38,6 @@ class SearchBar extends React.Component {
         document.getElementById("popup").className = "noDisplayClass"
     }
 
-    makeApiCall(url) {
-        return axios({
-            method: "GET",
-            url:url,
-        }).then(response => {
-            if (response.status != 200) {
-                throw new Error("HTTP status " + response.status);
-            }
-            return response.data;
-        })
-    }
 
 
     onFormSubmit(event) {
@@ -56,13 +45,19 @@ class SearchBar extends React.Component {
         event.preventDefault()
 
         let term =  event.target.value
-        this.makeApiCall(`/get_movies?searchTerm=${term}`).then((response => {
-            console.log(response)
-            this.setTheState(term,response)
-        })).catch(() => {
+
+        axios({
+            method: "GET",
+            url:`http://localhost:5000/get_movies?searchTerm=${term}`,
+        }).then(response => {
+            if (response.status != 200) {
                 this.setTheState(term,[])
+                console.log(response)
             }
-        )
+            else {
+                this.setTheState(term, response.data)
+            }
+        })
     }
 
     setTheState(term, responseData) {
