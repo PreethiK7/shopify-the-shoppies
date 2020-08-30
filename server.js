@@ -12,9 +12,9 @@ app.use(cors())
 app.options('*', cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('client/build'));
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
-app.use(express.static(__dirname + '/'));
+
 app.use(express.json());
 
 if (process.env.NODE_ENV === 'production') {
