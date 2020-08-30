@@ -38,13 +38,15 @@ class SearchBar extends React.Component {
     }
 
     makeApiCall(url) {
-        return fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("HTTP status " + response.status);
-                }
-                return response.json();
-            })
+        return axios({
+            method: "GET",
+            url:url,
+        }).then(response => {
+            if (response.status != 200) {
+                throw new Error("HTTP status " + response.status);
+            }
+            return response.data;
+        })
     }
 
 
